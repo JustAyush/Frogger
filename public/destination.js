@@ -1,15 +1,16 @@
 
 class Destination extends Rectangle {
 
-  constructor(x, y, w){
-    super(x, y, w, w);
+  constructor(x, y, w, h){
+    super(x, y, w, h);
     this.x = x;
     this.y = y;
     this.w = w;
+    this.h = h;
   }
 
   show(){
-    rect(this.x, this.y, this.w, this.w);
+    rect(this.x, this.y, this.w, this.h);
   }
 
 }

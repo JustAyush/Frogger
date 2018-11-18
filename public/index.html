@@ -24,8 +24,30 @@
 
 </head>
 
-<body>
+<body onLoad="toggleModal();">
 
+  <div class="modal">
+    <div class="modal-content">
+      <h1>Hello, I am a modal!</h1>
+      <button class="startButton" onclick="startGame();"> Start</button>
+    </div>
+  </div>
 
 </body>
+
+<script>
+  var modal = document.querySelector(".modal");
+  var startButton = document.querySelector(".startButton");
+  var ready = false;
+
+  function toggleModal() {
+    modal.classList.toggle("show-modal");
+  }
+
+  function startGame(){
+    toggleModal();
+    ready = true;
+  }
+</script>
+
 </html>
