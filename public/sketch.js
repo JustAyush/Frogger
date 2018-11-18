@@ -1,7 +1,12 @@
 var grid;
 var frog = [];
 var lane = [];
-var laneIndexp1;
+var weapon = [];
+var laneIndexp1
+var step = 2;
+var bulletp1 = [];
+var bulletp2 = [];
+var destination = [];
 
 
 function setup(){
@@ -35,6 +40,12 @@ function setup(){
 
   frog[0] = new Frog(grid, height/2, grid, 'p1');
   frog[1] = new Frog(24*grid, height/2, grid, 'p2');
+
+  weapon[0] = new Weapon(0, height/2, grid, grid*2);
+  weapon[1] = new Weapon(25*grid, height/2, grid, grid*2);
+
+  destination[0] = new Destination(grid, height/2, grid);
+  destination[1] = new Destination(24*grid, height/2, grid);
 }
 
 function draw(){
@@ -54,22 +65,49 @@ function draw(){
       lane[laneIndexp2].check(frog[1]);
     }
 
-
-    // if(Math.floor(frog[1].x/lane[i].x)){
-    //   lane[i].checkCar(frog[1]);
-    //   lane[i].checkLog(frog[1]);
-    // }
-    // if(Math.floor(frog[0].x/lane[i].x)){
-    //   lane[i].checkCar(frog[0]);
-    //   lane[i].checkLog(frog[0]);
-    // }
-
-
-
   for(let i=0; i<frog.length; i++){
     frog[i].show();
     frog[i].update();
   }
+
+  for(let i=0; i<weapon.length; i++){
+    weapon[i].show();
+  }
+  weapon[0].move();
+  weapon[1].moveOpposite();
+
+  for(let i=(bulletp1.length-1); i>=0; i--){
+    bulletp1[i].show();
+    bulletp1[i].moveLeft();
+    if(bulletp1[i].intersects(frog[1])){
+      resetGamep2();
+      bulletp1.splice(i, 1);
+    }
+  }
+
+  for(let i=(bulletp2.length-1); i>=0; i--){
+    bulletp2[i].show();
+    bulletp2[i].moveRight();
+    if(bulletp2[i].intersects(frog[0])){
+      resetGamep1();
+      bulletp2.splice(i, 1);
+    }
+  }
+
+  for(let i=0; i<destination.length; i++){
+    destination[i].show();
+  }
+
+  if(frog[0].intersects(destination[1]))
+    console.log("p1 won");
+  if(frog[1].intersects(destination[0]))
+    console.log("p2 won");
+  if(frog[0].intersects(frog[1])){
+    resetGamep1();
+    resetGamep2();
+  }
+
+
 
 }
 
@@ -98,6 +136,14 @@ function keyPressed(){
   }
   else if(key == 's' || key == 'S'){
     frog[1].move(0, 1);
+  }
+  else if(key == ' '){
+    var bp1 = new Bullet( grid, (weapon[0].y + 0.5*weapon[0].h), 10);
+    bulletp1.push(bp1);
+  }
+  else if(keyCode == ENTER){
+    var bp2 = new Bullet( 25*grid, (weapon[1].y + 0.5*weapon[1].h), 10);
+    bulletp2.push(bp2);
   }
 
   return false;
