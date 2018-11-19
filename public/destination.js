@@ -10,7 +10,7 @@ class Destination extends Rectangle {
   }
 
   show(){
-    rect(this.x, this.y, this.w, this.h);
+    image(grass, this.x, this.y, this.w, this.h);
   }
 
 }

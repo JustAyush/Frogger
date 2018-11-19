@@ -10,18 +10,41 @@ class Lane extends Rectangle{
     this.type = type;
     this.obstacles = [];
     if(type != 'SAFETY'){
+      if(type == 'LOG'){
+        var offset = random(0, 400);
+        for(let i=0; i<n; i++){
+          this.obstacles[i] = new Obstacle(index*grid, offset+spacing*i, grid, length, speed, 'LOG');
+        }
+      }
+    else if(type == 'CAR'){
       var offset = random(0, 400);
       for(let i=0; i<n; i++){
-        this.obstacles[i] = new Obstacle(index*grid, offset+spacing*i, grid, length, speed);
+        this.obstacles[i] = new Obstacle(index*grid, offset+spacing*i, grid, length, speed, 'CAR');
       }
+    }
     }
   }
 
   show(){
-    fill(255);
-    if(this.type == 'SAFETY')
+    if(this.type == 'CAR'){
+      fill(64, 70, 79);
+      stroke(247, 244, 247, 10);
+      rect(this.x, 0, grid, windowHeight);
+    }
+    else if(this.type == 'LOG'){
+      fill(28, 108, 219);
+      noStroke();
+      rect(this.x, 0, grid, windowHeight);
+    }
+    else if(this.type == 'GRASS'){
+      image(grass, this.x, this.y, this.w, this.h);
+    }
+    else if(this.type == 'SAFETY'){
       fill(155);
-    rect(this.x, 0, grid, windowHeight);
+      noStroke();
+      rect(this.x, 0, grid, windowHeight);
+    }
+
     for(let i=0; i<this.obstacles.length; i++){
         this.obstacles[i].show();
         this.obstacles[i].move();

@@ -10,6 +10,7 @@ class Bullet extends Rectangle {
   }
 
   show(){
+    fill(232, 9, 9);
     ellipse(this.x, this.y, this.r, this.r);
   }
 

@@ -9,7 +9,10 @@ class Frog extends Rectangle {
   }
 
   show(){
-    rect(this.x, this.y, this.w, this.w);
+    if(this.p == 'p1')
+      image(sheepp1, this.x, this.y, this.w, this.w);
+    else if(this.p == 'p2')
+      image(sheepp2, this.x, this.y, this.w, this.w);
   }
 
   move(xdir, ydir){

@@ -1,16 +1,20 @@
 
 class Weapon extends Rectangle {
 
-  constructor(x, y, w, h){
+  constructor(x, y, w, h, type){
     super(x, y, w, h);
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
+    this.type = type;
   }
 
   show(){
-    rect(this.x, this.y, this.w, this.h);
+    if(this.type == 'tankp1')
+      image(tankp1, this.x, this.y, this.w, this.h);
+    else if(this.type == 'tankp2')
+      image(tankp2, this.x, this.y, this.w, this.h);
   }
 
   move(){
